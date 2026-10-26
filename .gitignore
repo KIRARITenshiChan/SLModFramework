@@ -9,3 +9,4 @@ build/
 logs/
 config/framework.ini
 *.zip
+!release/*.zip

@@ -1,0 +1,22 @@
+name: release-assets
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify release zip checksum
+        run: |
+          cd release
+          grep 'SLModFramework-1.0.0-win-x86.zip$' SHA256SUMS | sha256sum -c -
+      - name: Create or update GitHub Release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ github.ref_name }}"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "SLModFramework $TAG" --notes-file RELEASE_NOTES.md
+          gh release upload "$TAG" release/SLModFramework-1.0.0-win-x86.zip release/SHA256SUMS --clobber
