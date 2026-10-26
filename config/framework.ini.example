@@ -1,0 +1,63 @@
+# SLModFramework configuration example
+# Copy to <game>\SLModFramework\config\framework.ini to override defaults.
+# The framework creates this file with default values on first run if it is
+# missing; a corrupt/unknown file is backed up as framework.ini.bad-<timestamp>
+# and replaced by defaults (see docs/OVERLAY_INPUT.md §4.2).
+config_version=1
+
+# GUI toggle hotkey: insert | f1..f12 | home | end | delete | 0 | 0xNN (hex VK)
+# Change to e.g. f2 -> the launcher automation must use --toggle-key 0x71.
+hotkey=insert
+
+# Persistent HUD strip while the GUI is closed: 0/1
+hud=0
+
+# Install D3D9 hooks (0 = fully disables the overlay, debug-only): 0/1
+hook_d3d9=1
+
+# Max time to wait for mmfs2.dll after injection: 0..120000 ms
+wait_mmfs2_ms=60000
+
+# Plugins live in <game>\SLModFramework\plugins\<dir>\plugin.ini (API v1, see
+# docs/PLUGIN_API_V0.md). There is no config key for the plugin root yet.
+
+# --- Phase 5/6 (v1.9) ---
+# Write JSONL state snapshots to logs/state/ (debug / ThreatTelegraphs evidence): 0/1
+record=0
+
+# Snapshot interval while recording: 100..10000 ms (scene changes always recorded)
+record_interval_ms=500
+
+# Phase 6: read-only DirectSound probe (logs buffer create/play + sample match): 0/1
+audio_probe=0
+
+# Phase 6: attenuate identified jumpscare scream buffers (requires audio_probe): 0/1
+audio_soften=0
+
+# Phase 6: target gain percent for screams when audio_soften=1: 1..100
+audio_gain_percent=25
+
+# --- Phase 7/8 QoL (v1.15+) ---
+# Release the mouse cursor while the game is unfocused or the GUI is open: 0/1
+qol_release_mouse=1
+
+# Numpad digits 1..9 answer the frame-19 Baby keypad (mouse-only in vanilla): 0/1
+qol_keypad_numpad=1
+
+# A/D/W close the left/right/vent doors in the frame-27 Private Room, S flips
+# the monitor panel (Custom Night style; mouse-only in vanilla): 0/1
+qol_private_hotkeys=1
+
+# Play the local Doorslam WAV when a Private Room hotkey toggles a door: 0/1
+# (asset seeded from your own game files; not shipped with the framework)
+qol_door_sfx=1
+
+# --- Overlay font (v1.17+) ---
+# Full path to a .ttf/.ttc used by the framework GUI and plugin overlays.
+# Empty = auto-detect a system CJK font (Microsoft YaHei, SimHei, ...).
+# The full Simplified Chinese glyph range is loaded, so rare characters such
+# as U+6C27 (氧, custom-night oxygen warning) render correctly.
+font_path=
+
+# Overlay base font size in pixels: 10..40 (DPI scale is applied on top)
+font_size=14

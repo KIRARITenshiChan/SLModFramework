@@ -1,0 +1,11 @@
+# build outputs
+bin/
+build/
+*.o
+*.obj
+*.exe
+*.dll
+# local data
+logs/
+config/framework.ini
+*.zip
