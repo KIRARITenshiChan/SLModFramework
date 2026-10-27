@@ -1,0 +1,22 @@
+name: release-assets
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify release zip checksum
+        working-directory: release
+        run: grep 'SLModFramework-1.0.0-win-x86.zip$' SHA256SUMS | sha256sum -c -
+      - name: Upload assets to GitHub Release v1.0.0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload v1.0.0 release/SLModFramework-1.0.0-win-x86.zip release/SHA256SUMS --clobber
+          gh release view v1.0.0 --json assets --jq '.assets[].name'
